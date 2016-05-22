@@ -1,7 +1,8 @@
 var auth = require('./auth'),
 	users = require('../controller/users'),
 	mongoose = require('mongoose'),
-	User = mongoose.model('User');
+	User = mongoose.model('User'),
+	blogposts = require('../controller/blogposts');
 
 module.exports = function(app){
 
@@ -18,6 +19,11 @@ module.exports = function(app){
 		req.logout();
 		res.end();
 	});
+
+	app.get('/api/:id/blog', blogposts.getBlog);
+	app.post('/api/blog', blogposts.createBlog);
+	app.put('/api/blog', blogposts.updateBlog);
+	app.post('/api/blog', blogposts.deleteBlog);
 
 	app.get('/', function(req, res){
 		console.log(" res ",res);
